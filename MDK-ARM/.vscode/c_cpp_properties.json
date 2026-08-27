@@ -15,6 +15,10 @@
                 "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\LVGL\\GUI\\lvgl\\examples\\porting",
                 "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\LVGL\\GUI_APP",
                 "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\LVGL\\GUI_APP\\demos",
+                "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\LVGL\\GUI_APP\\my_demos",
+                "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\FreeRTOS",
+                "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\FreeRTOS\\include",
+                "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\FreeRTOS\\portable\\RVDS\\ARM_CM4F",
                 "D:\\Keil5\\ARM\\ARMCC\\include",
                 "D:\\Keil5\\ARM\\ARMCC\\include\\rw",
                 "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\MDK-ARM",
@@ -76,7 +80,9 @@
                 "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\LVGL\\GUI\\lvgl\\src\\draw\\stm32_dma2d",
                 "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\LVGL\\GUI\\lvgl\\src\\hal",
                 "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\LVGL\\GUI\\lvgl\\src\\misc",
-                "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\LVGL\\GUI\\lvgl\\src\\widgets"
+                "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\LVGL\\GUI\\lvgl\\src\\widgets",
+                "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\FreeRTOS\\source",
+                "d:\\work\\STM32\\F407VET6_Project\\lvgl_project\\FreeRTOS\\portable\\MemMang"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

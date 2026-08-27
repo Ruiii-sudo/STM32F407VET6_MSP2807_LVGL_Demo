@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/Hardware;../LVGL/GUI;../LVGL/GUI/lvgl;../LVGL/GUI/lvgl/src;../LVGL/GUI/lvgl/examples/porting;../LVGL/GUI_APP;../LVGL/GUI_APP/demos</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/Hardware;../LVGL/GUI;../LVGL/GUI/lvgl;../LVGL/GUI/lvgl/src;../LVGL/GUI/lvgl/examples/porting;../LVGL/GUI_APP;../LVGL/GUI_APP/demos;../LVGL/GUI_APP/my_demos;../FreeRTOS;../FreeRTOS/include;../FreeRTOS/portable/RVDS/ARM_CM4F</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -655,10 +655,32 @@
               <FileType>1</FileType>
               <FilePath>..\Core\Hardware\touch.c</FilePath>
             </File>
+            <File>
+              <FileName>user_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Hardware\user_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_task.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Hardware\user_task.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Application/User/GUI_APP</GroupName>
+          <Files>
+            <File>
+              <FileName>ui_demo_01.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\GUI_APP\my_demos\ui_demo_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_demo_01.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\LVGL\GUI_APP\my_demos\ui_demo_01.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Application/User/GUI_APP/Demo</GroupName>
@@ -1942,6 +1964,66 @@
               <FileName>lv_textarea.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LVGL\GUI\lvgl\src\widgets\lv_textarea.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/FreeRTOS/Source</GroupName>
+          <Files>
+            <File>
+              <FileName>croutine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\source\croutine.c</FilePath>
+            </File>
+            <File>
+              <FileName>event_groups.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\source\event_groups.c</FilePath>
+            </File>
+            <File>
+              <FileName>list.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\source\list.c</FilePath>
+            </File>
+            <File>
+              <FileName>queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\source\queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>stream_buffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\source\stream_buffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>tasks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\source\tasks.c</FilePath>
+            </File>
+            <File>
+              <FileName>timers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\source\timers.c</FilePath>
+            </File>
+            <File>
+              <FileName>FreeRTOSConfig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\FreeRTOS\FreeRTOSConfig.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/FreeRTOS/Portable</GroupName>
+          <Files>
+            <File>
+              <FileName>heap_4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\portable\MemMang\heap_4.c</FilePath>
+            </File>
+            <File>
+              <FileName>port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c</FilePath>
             </File>
           </Files>
         </Group>

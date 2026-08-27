@@ -127,7 +127,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
     /**USART1 GPIO Configuration
     PA9     ------> USART1_TX
-    PA10    ------> USART1_RX
+    PA10     ------> USART1_RX
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|GPIO_PIN_10);
 
@@ -143,15 +143,15 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
-volatile uint8_t usart_dma_tx_over = 1; // 串口DMA发送完成标志
+volatile uint8_t usart_dma_tx_over = 1; // 串口DMA发�?�完成标�?
 
 /**
- * @brief 计算字符串长度,
- * 该函数用于计算给定字符串的长度。在计算长度时，考虑到转义字符的情况。如果遇到转义字符，
- * 会根据转义字符后的情况适当地增加长度。特别地，如果转义字符后是换行符或空字符，只计算一个字节，
- * 否则，转义字符及其后的字符均计算在长度内。
- * @param str 指向要计算长度的字符串的指针。
- * @return 返回字符串的长度。
+ * @brief 计算字符串长�?,
+ * 该函数用于计算给定字符串的长度�?�在计算长度时，考虑到转义字符的情况。如果遇到转义字符，
+ * 会根据转义字符后的情况�?�当地增加长度�?�特别地，如果转义字符后是换行符或空字符，只计算�?个字节，
+ * 否则，转义字符及其后的字符均计算在长度内�?
+ * @param str 指向要计算长度的字符串的指针�?
+ * @return 返回字符串的长度�?
  */
 uint16_t calculateStringLength(const uint8_t *str)
 {
@@ -163,50 +163,50 @@ uint16_t calculateStringLength(const uint8_t *str)
       // 遇到转义字符时的特殊处理
       if (*(str + 1) != '\0')
       {
-        // 如果转义字符后还有字符，则转义字符占用2个字节
+        // 如果转义字符后还有字符，则转义字符占�?2个字�?
         length += 2;
         str++; // 跳过转义字符
       }
       else
       {
-        // 如果转义字符后是字符串结束，只计算一个字节
+        // 如果转义字符后是字符串结束，只计算一个字�?
         length++;
       }
     }
     else
     {
-      // 对于普通字符，直接增加长度
+      // 对于普�?�字符，直接增加长度
       length++;
     }
-    str++; // 移动到下一个字符
+    str++; // 移动到下�?个字�?
   }
   return length;
 }
 
 /**
- * @brief USART1 使用DMA发送字符串
+ * @brief USART1 使用DMA发�?�字符串
  *
- * 通过USART1接口使用DMA方式发送字符串到指定的缓冲区
+ * 通过USART1接口使用DMA方式发�?�字符串到指定的缓冲�?
  *
- * @param pBuf 字符串指针
+ * @param pBuf 字符串指�?
  */
 void USART1_TX_DMA_String(uint8_t *pBuf)
 {
-  // 等待前一次DMA发送完成
+  // 等待前一次DMA发�?�完�?
   //while (!usart_dma_tx_over);
-  for (volatile uint16_t i = 0; i < 5000 && (!usart_dma_tx_over); i++);  // 等待前一次DMA发送完成
+  for (volatile uint16_t i = 0; i < 5000 && (!usart_dma_tx_over); i++);  // 等待前一次DMA发�?�完�?
 
-  // 清0全局标志，发送完成后重新置1
+  // �?0全局标志，发送完成后重新�?1
   usart_dma_tx_over = 0;
 
-  // 使用HAL库函数启动DMA发送
+  // 使用HAL库函数启动DMA发�??
   HAL_UART_Transmit_DMA(&huart1, pBuf, calculateStringLength(pBuf));
 }
 
 /**
  * @brief USART1_Printf 函数
  *
- * 使用 USART1 串口进行打印输出。
+ * 使用 USART1 串口进行打印输出�?
  *
  * @param format 格式化字符串
  * @param ... 可变参数列表
@@ -219,23 +219,23 @@ int USART1_Printf(const char *format, ...)
   static char SendBuff[200];
   int rv;
   
-  while (!usart_dma_tx_over); // 等待前一次DMA发送完成
+  while (!usart_dma_tx_over); // 等待前一次DMA发�?�完�?
   
-  // 使用可变参数列表进行格式化输出
+  // 使用可变参数列表进行格式化输�?
   va_start(arg, format);
   rv = vsnprintf(SendBuff, sizeof(SendBuff), format, arg);
   va_end(arg);
 
   /**
    * @brief 这两个检查在正常使用（短字符串）时不会触发，
-   * 但在异常情况下（字符串超长、格式化出错）能防止程序崩溃或发送垃圾数据，属于 "防患于未然" 的保护代码。
+   * 但在异常情况下（字符串超长�?�格式化出错）能防止程序崩溃或发送垃圾数据，属于 "防患于未�?" 的保护代码�??
    */
-  // 检查1：vsnprintf失败时直接返回
+  // �?�?1：vsnprintf失败时直接返�?
   if (rv <= 0)
   {
     return rv;
   }
-  // 检查2：缓冲区溢出时截断
+  // �?�?2：缓冲区溢出时截�?
   if (rv >= (int)sizeof(SendBuff))
   {
     rv = sizeof(SendBuff) - 1;
@@ -251,13 +251,13 @@ int USART1_Printf(const char *format, ...)
 /**
  * @brief UART传输完成回调函数
  *
- * 当UART外设完成数据传输时，该函数将被调用。
+ * 当UART外设完成数据传输时，该函数将被调用�??
  *
  * @param huart UART句柄指针
  */
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-  // 检查是否是当前的UART外设
+  // �?查是否是当前的UART外设
   if (huart->Instance == USART1)
   {
     usart_dma_tx_over = 1;

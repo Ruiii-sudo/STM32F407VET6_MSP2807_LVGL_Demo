@@ -22,6 +22,8 @@
 #include "lv_demos.h"
 #include "touch.h"
 #include "XPT2046.h"
+#include "ui_demo_01.h"
+#include "user_task.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -90,21 +92,10 @@ int main(void)
   MX_TIM3_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  USART1_Printf("STEP1: 进入用户代码区\r\n");
   HAL_TIM_Base_Start_IT(&htim3); // 启动定时器3，1ms中断，作为LVGL时基
+
+  freertos_start(); // 启动FreeRTOS，创建任务并启动调度器
   
-  // LVGL初始化（必须按顺序）
-  lv_init();
-  USART1_Printf("STEP2: 开始LCD初始化\r\n");
-  lv_port_disp_init(); // 显示初始化   
-  USART1_Printf("STEP3: LCD初始化完成\r\n");
-  lv_port_indev_init(); // 输入设备初始化（触摸）
-  TP_Init();  // 触摸硬件初始化            
-  
-  // 创建LVGL demo
-  lv_demo_widgets();
-  
-  USART1_Printf("System init OK, bare metal version\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -114,9 +105,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    lv_task_handler();  // LVGL任务处理
-    tp_dev.scan();      // 触摸扫描
-    HAL_Delay(5);       // 5ms延时，约200Hz刷新率
   }
   /* USER CODE END 3 */
 }
