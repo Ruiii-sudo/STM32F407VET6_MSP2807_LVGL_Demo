@@ -18,13 +18,24 @@
 
 ### 多传感器数据采集
 - 每秒采集一次温度、湿度、光照、气体数据
-- SHT30 带 CRC 校验的 I2C 通信，数据可靠性高
-- 采集数据通过消息队列传递至界面与 MQTT 任务，解耦数据生产与消费
+- 采集数据经消息队列传递至 LVGL 任务，写入全局当前值与环形缓冲区，供界面刷新与 MQTT 上传共享读取
 
 ### LVGL 图形交互界面
 - **滑动解锁锁屏**：设备上电进入锁屏界面，滑块拖动解锁，未达阈值松手自动回弹，背光超时自动锁屏
+  
+<img width="250" alt="lock_screen" src="https://github.com/user-attachments/assets/05dc9d49-dced-4dee-a379-29cd10fdeb09" />
+
 - **三页式布局**：数据展示页（2×2 传感器卡片）、系统设置页（自动刷新开关 / 数据上传开关、锁屏按钮）、设备信息页
+
+| 数据展示页 | 系统设置页 | 设备信息页 |
+|:---:|:---:|:---:|
+| <img width="300" alt="display" src="https://github.com/user-attachments/assets/93d4d958-138e-4507-96a5-8ebb3ce4de8e" /> | <img width="300" alt="settings" src="https://github.com/user-attachments/assets/b09dca35-c400-4bef-a70d-6d3a96a154fc" /> | <img width="300" alt="device" src="https://github.com/user-attachments/assets/f2d804a5-497f-48e2-8031-ba8745118b31" />
+
 - **传感器详情页**：点击卡片进入，折线图展示 60 点历史数据，底部统计面板显示当前值 / 最大值 / 最小值 / 平均值，支持单传感器暂停 / 继续
+
+| 温度 | 湿度 | 光照 | 空气质量 |
+|:---:|:---:|:---:|:---:|
+| <img width="300" alt="temp" src="https://github.com/user-attachments/assets/23c053c2-1462-44eb-82c1-382b8f53ea5c" /> | <img width="300" alt="humi" src="https://github.com/user-attachments/assets/a4f584ea-c1db-4909-a9b8-d7b6ba1b6846" /> | <img width="300" alt="light" src="https://github.com/user-attachments/assets/5c9c94c0-4f6c-4b7c-833a-aaaabc14e9c2" /> | <img width="300" alt="gas" src="https://github.com/user-attachments/assets/62b8955b-ba5d-48d6-996d-9c2d2c34e0fd" /> |
 
 ### 数据可视化算法
 - **环形缓冲区**：固定容量 60 点，新数据覆盖最旧数据，无需动态内存分配
@@ -55,9 +66,9 @@
 | 启动任务 | 2 | 128 字 | 创建以上任务后自删 |
 
 ### 任务间通信
-- **消息队列**：传感器采集任务 → LVGL / MQTT 任务，传递 EnvData_t 结构体，容量 10
+- **消息队列**：传感器采集任务 → LVGL 任务，传递 EnvData_t 结构体，容量 10，解耦数据采集与界面处理
+- **全局共享数据**：LVGL 任务将队列数据写入全局当前值与环形缓冲区，供界面刷新与 MQTT 上传共同读取；MQTT 读取时使用临界区保护，防止高优先级 LVGL 任务抢占写入导致数据不一致
 - **任务通知**：触摸 EXTI 中断 → 触摸扫描任务，零开销唤醒，替代信号量
-- **临界区**：保护传感器全局数据，确保 LVGL 渲染与 MQTT 上传并发访问时数据一致
 
 ### DMA 加速
 - **SPI1 TX DMA**：LCD 像素数据分块异步传输，配合传输完成中断回调，避免 CPU 阻塞等待
