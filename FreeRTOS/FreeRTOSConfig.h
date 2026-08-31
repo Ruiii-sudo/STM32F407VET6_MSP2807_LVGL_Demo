@@ -52,6 +52,7 @@ extern uint32_t SystemCoreClock;
 #define configUSE_PREEMPTION			1  //设置为1，使用抢占式调度
 #define configUSE_IDLE_HOOK				0  //设置为0，不使用空闲钩子函数
 #define configUSE_TICK_HOOK				0  //设置为0，不使用节拍钩子函数
+#define configUSE_TICKLESS_IDLE			1  //空闲时自动进入 Sleep(WFI)，中断唤醒
 #define configCPU_CLOCK_HZ				( ( unsigned long ) 168000000 )  //设置CPU时钟为168MHz
 #define configTICK_RATE_HZ				( ( TickType_t ) 1000 )       //设置系统节拍为1ms
 #define configMAX_PRIORITIES			( 5 )                         //设置最大优先级为5
@@ -123,5 +124,12 @@ standard names. */
 /*添加必须的宏*/
 #define INCLUDE_xTaskGetSchedulerState 1
 
+/*低功耗*/
+extern void HAL_SuspendTick(void);
+extern void HAL_ResumeTick(void);
+#define configPRE_SLEEP_PROCESSING( x )  do { HAL_SuspendTick(); } while(0)
+#define configPOST_SLEEP_PROCESSING( x ) do { HAL_ResumeTick(); } while(0)
+
 #endif /* FREERTOS_CONFIG_H */
+
 

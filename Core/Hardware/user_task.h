@@ -2,6 +2,6 @@
 #define USER_TASK_H
 
 void freertos_start(void);
-
+void backlight_reset(void);
 
 #endif

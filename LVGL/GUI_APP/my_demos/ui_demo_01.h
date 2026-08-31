@@ -1,26 +1,41 @@
 /**
   ******************************************************************************
   * @file    ui_demo_01.h
-  * @brief   LVGL×Ô¶¨ÒåUI½çÃæDemoÍ·ÎÄ¼ş
-  *          °üº¬Ö÷²Ëµ¥¡¢¿Ø¼şÑİÊ¾¡¢¹ØÓÚÈı¸öÒ³Ãæ
+  * @brief   ä¼ æ„Ÿå™¨æ•°æ®ç›‘æ§UI - å®æ—¶æ•°æ®å¡ç‰‡ + å†å²æŠ˜çº¿å›¾
   ******************************************************************************
   */
-
 #ifndef __UI_DEMO_01_H
 #define __UI_DEMO_01_H
+
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
-  * @brief  UI Demo³õÊ¼»¯Èë¿Ú
-  * @note   ÔÚmain.cÖĞÌæ»»lv_demo_widgets()µ÷ÓÃ´Ëº¯Êı
+  * @brief  UIåˆå§‹åŒ–å…¥å£ï¼ˆåœ¨LVGLä»»åŠ¡ä¸­è°ƒç”¨ï¼‰
   */
 void ui_demo_01_init(void);
+
+/**
+  * @brief  åˆ·æ–°ä¼ æ„Ÿå™¨æ•°æ®æ˜¾ç¤ºï¼ˆåœ¨LVGLä»»åŠ¡ä¸­å®šæ—¶è°ƒç”¨ï¼‰
+  */
+void ui_refresh_sensor_data(void);
+
+/**
+  * @brief  æ‰‹åŠ¨é”å®šå±å¹•ï¼ˆè®¾ç½®é¡µæŒ‰é’®å¯è°ƒç”¨ï¼‰
+  */
+void ui_lock_screen_now(void);
+	
+/**
+  * @brief  æŸ¥è¯¢æ•°æ®ä¸Šä¼ å¼€å…³æ˜¯å¦å¼€å¯
+  * @retval true-å¼€å¯ä¸Šä¼ , false-å…³é—­ä¸Šä¼ 
+  */
+bool ui_is_upload_enabled(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __UI_DEMO_H */
+#endif /* __UI_DEMO_01_H */
